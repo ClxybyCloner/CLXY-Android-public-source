@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_notification_channel">به‌روزرسانی‌های برنامه</string>
+    <string name="update_notification_title">به‌روزرسانی آماده است</string>
+    <string name="update_notification_body">نسخهٔ %1$s از CLXY آماده است. برای بررسی و نصب لمس کنید.</string>
+    <string name="update_notification_action">مشاهدهٔ به‌روزرسانی</string>
+</resources>

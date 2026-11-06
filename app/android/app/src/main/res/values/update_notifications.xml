@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_notification_channel">App updates</string>
+    <string name="update_notification_title">Update available</string>
+    <string name="update_notification_body">CLXY %1$s is ready. Tap to review and install.</string>
+    <string name="update_notification_action">Open update</string>
+</resources>

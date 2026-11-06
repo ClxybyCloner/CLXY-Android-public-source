@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The app's native window stays dark, including before Flutter starts. -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:colorBackground">@color/clxy_window_background</item>
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:statusBarColor">@color/clxy_window_background</item>
+        <item name="android:navigationBarColor">@color/clxy_window_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:colorBackground">@color/clxy_window_background</item>
+        <item name="android:windowBackground">@color/clxy_window_background</item>
+        <item name="android:statusBarColor">@color/clxy_window_background</item>
+        <item name="android:navigationBarColor">@color/clxy_window_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

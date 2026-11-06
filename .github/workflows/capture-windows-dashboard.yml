@@ -1,0 +1,60 @@
+name: Capture Windows dashboard preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful Build workflow run ID containing the Windows artifact
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  FLUTTER_VERSION: 3.47.7
+
+jobs:
+  capture:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Download the private Windows build artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: windows
+          path: ${{ runner.temp }}/clxy-dashboard-artifact
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Capture portable app client area
+        shell: pwsh
+        run: ./scripts/capture-windows-dashboard.ps1
+
+      - name: Upload dashboard preview and safe log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-dashboard-preview
+          path: |
+            out/windows-dashboard-content.png
+            out/windows-accounts-content.png
+            out/windows-about-content.png
+            out/windows-about-zoom-in-content.png
+            out/windows-about-zoom-reset-content.png
+            out/windows-dashboard-preview.log
+            out/windows-dashboard-views.log
+          if-no-files-found: error
