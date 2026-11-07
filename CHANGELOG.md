@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.27 (Android ARM64)
+
+- Improved sign-in request handling and challenge-cookie propagation.
+- Live sign-in has not been verified; HTTP 406 behavior remains unconfirmed.
+
 ## 1.0.26 (Android)
 
 - Added a selectable in-app browser sign-in method alongside the existing email and password form.

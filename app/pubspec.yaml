@@ -1,7 +1,7 @@
 name: clxy
 description: "Cross-platform shell for the Go VPN core"
 publish_to: 'none'
-version: 1.0.26+12148
+version: 1.0.27+14149
 
 environment:
   sdk: ^3.13.5

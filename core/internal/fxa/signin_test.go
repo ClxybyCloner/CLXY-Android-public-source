@@ -33,6 +33,34 @@ func useFxaFixture(t *testing.T, handler func(r *http.Request, body map[string]a
 	}))
 }
 
+func TestOAuthJSONRequestUsesNativeFirefoxHeaderProfile(t *testing.T) {
+	req, err := newOAuthJSONRequest(context.Background(), fxaOAuthTokenURL, []byte(`{}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, tc := range []struct{ name, want string }{
+		{"Accept", "application/json;q=0.9,*/*;q=0.2"},
+		{"Accept-Language", "en-US, en"},
+		{"Accept-Encoding", "identity"},
+		{"Content-Type", "application/json; charset=utf-8"},
+		{"Cache-Control", "no-cache"},
+		{"Pragma", "no-cache"},
+		{"Sec-Fetch-Dest", "empty"},
+		{"Sec-Fetch-Mode", "no-cors"},
+		{"Sec-Fetch-Site", "none"},
+		{"Priority", "u=4"},
+	} {
+		if got := req.Header.Get(tc.name); got != tc.want {
+			t.Errorf("%s = %q, want %q", tc.name, got, tc.want)
+		}
+	}
+	for _, name := range []string{"Origin", "Referer"} {
+		if got := req.Header.Get(name); got != "" {
+			t.Errorf("%s = %q, want no OAuth header", name, got)
+		}
+	}
+}
+
 func TestOAuthTokenUsesAuthorizationCodeAfter406(t *testing.T) {
 	for _, mismatch := range []bool{false, true} {
 		name := "matching state"
@@ -44,7 +72,9 @@ func TestOAuthTokenUsesAuthorizationCodeAfter406(t *testing.T) {
 			var calls int
 			useFxaFixture(t, func(r *http.Request, body map[string]any) (int, string) {
 				calls++
-				if r.Method != http.MethodPost || body["client_id"] != firefoxClientID {
+				if r.Method != http.MethodPost || body["client_id"] != firefoxClientID ||
+					r.Header.Get("Content-Type") != "application/json; charset=utf-8" ||
+					r.Header.Get("Sec-Fetch-Site") != "none" {
 					t.Fatalf("unexpected OAuth request to %s", r.URL)
 				}
 				switch r.URL.String() {
@@ -110,6 +140,8 @@ func TestRefreshTokenFallsBackToOAuthEndpointOn406(t *testing.T) {
 			useFxaFixture(t, func(r *http.Request, body map[string]any) (int, string) {
 				calls++
 				if r.Method != http.MethodPost || r.Header.Get("Authorization") != "" ||
+					r.Header.Get("Content-Type") != "application/json; charset=utf-8" ||
+					r.Header.Get("Accept") != "application/json;q=0.9,*/*;q=0.2" ||
 					body["grant_type"] != "refresh_token" || body["refresh_token"] != storedRefresh ||
 					body["client_id"] != firefoxClientID || body["scope"] != oauthScope {
 					t.Fatalf("unexpected refresh request to %s", r.URL)

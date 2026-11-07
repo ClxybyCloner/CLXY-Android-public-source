@@ -56,6 +56,8 @@ Defaults and relevant paths:
 
 Every Guardian request sends `Authorization: Bearer`, `Content-Type: application/json`, and `Cache-Control: max-age=0` (fetch's no-cache mode), as Firefox's `GuardianClient` does. Every control-plane request also carries desktop Firefox's `User-Agent` and `Accept: */*` (`controlplane.ApplyFirefoxHeaders`).
 
+OAuth issuance, PKCE authorization/code exchange, and refresh requests use the native Firefox OAuth header profile: `Accept: application/json;q=0.9,*/*;q=0.2`, `Accept-Language: en-US, en`, `Content-Type: application/json; charset=utf-8`, `Cache-Control: no-cache`, `Pragma: no-cache`, `Sec-Fetch-Dest: empty`, `Sec-Fetch-Mode: no-cors`, `Sec-Fetch-Site: none`, and `Priority: u=4`. The shared Firefox User-Agent and `Accept-Encoding: identity` remain unchanged.
+
 [internal/guardian/guardian.go](../internal/guardian/guardian.go) parses the pass and quota headers. A non-200 answer is a `guardian.HTTPError` whose `errors.Is` classification follows Firefox's `GuardianClient.toError`:
 
 | Status | Sentinel(s) | Meaning / CLI handling |
@@ -155,6 +157,8 @@ Do not infer live quota-exhaustion behavior from parsing quota headers. The hist
 [internal/controlplane](../internal/controlplane/client.go) owns a shared 30-second HTTP client and cookie jar. Configure `controlplane.SetTransport` before requests start. This client is distinct from data-plane sessions.
 
 [challenge.go](../internal/fxa/challenge.go) handles account-API HTTP 406 challenges, PoW/PAT, and challenge cookies, with at most five challenge attempts. The FxA request budget is capped at 90 seconds and challenge solving at 60 seconds; caller cancellation still applies. Each 406 is logged at INFO (`the account server answered HTTP 406`), each solved challenge with its host, the kinds of challenge asked, the rounds, and the time, and a failed solve at WARN.
+
+Solved challenge cookies are installed for the FxA API's versioned and root paths, the alternate OAuth origin (`oauth.accounts.firefox.com`), and the sign-in site; they are not copied to Guardian or unrelated hosts.
 
 Do not disable production TLS validation to work around a challenge or local interception. Test-only certificate configurations must remain local to tests.
 
