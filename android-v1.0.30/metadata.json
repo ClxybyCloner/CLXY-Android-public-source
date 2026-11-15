@@ -1,0 +1,6 @@
+{
+  "name": "CLXY",
+  "description": "CLXY Android VPN client powered by Arman VPN core",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Left C-loop of the CLXY mark -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M15.35,7.35 C13.85,5.55 11.55,4.45 8.95,4.45 C4.80,4.45 1.45,7.80 1.45,11.95 C1.45,16.10 4.80,19.45 8.95,19.45 C11.45,19.45 13.70,18.40 15.20,16.70 L13.10,14.25 C12.15,15.10 10.90,15.55 9.45,15.55 C7.20,15.55 5.45,13.95 5.45,11.95 C5.45,9.95 7.20,8.35 9.45,8.35 C10.65,8.35 11.75,8.75 12.60,9.45 L15.35,7.35 Z" />
+    <!-- Right overlapping alpha-X ribbons -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M9.75,9.10 C11.20,9.10 12.40,10.25 13.70,11.70 L14.40,10.95 L18.45,6.45 C19.30,5.50 20.80,5.50 21.70,6.35 C22.60,7.20 22.65,8.65 21.80,9.60 L18.60,13.05 L21.45,16.20 C22.30,17.15 22.25,18.60 21.30,19.45 C20.35,20.30 18.90,20.20 18.05,19.25 L10.65,10.85 C10.05,10.15 9.35,9.60 8.55,9.35 C8.95,9.18 9.35,9.10 9.75,9.10 Z" />
+</vector>

@@ -1,0 +1,3 @@
+CLXY Android v1.0.26 is a modified work. Changes made on 2026-11-06 include the CLXY Android application, its branding and interface, account backup, network settings, a selectable in-app browser sign-in method, and removal of the one-time browser sign-in-link route. The combined work in this repository is distributed under GNU GPL version 3.0; see LICENSE.
+
+This release contains modified portions from armanlife/arman-vpn-client v1.0.12, commit 73ffad0c7f68d7ba19aaefcb9997255aba615039. Those portions are covered by GPL-3.0. The previous CLXY MIT notice is preserved in LICENSE-MIT-CLXY.

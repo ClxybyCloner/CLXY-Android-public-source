@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">CLXY</string>
+    <string name="notification_channel">VPN</string>
+    <string name="notification_connecting">Connecting…</string>
+    <string name="notification_no_network">No internet connection</string>
+    <string name="notification_proxy">Proxy only · %1$s</string>
+    <string name="notification_stop">Disconnect</string>
+    <string name="widget_label">CLXY Quick Connect</string>
+    <string name="widget_description">Connect or disconnect CLXY with one tap</string>
+    <string name="widget_connect">Tap to connect</string>
+    <string name="widget_disconnect">Tap to disconnect</string>
+    <string name="update_notification_title">CLXY Update Available (%1$s)</string>
+    <string name="update_notification_body">A new version (%1$s) is available on GitHub. Tap to view and download.</string>
+</resources>
